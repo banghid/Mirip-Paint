@@ -31,6 +31,10 @@ end;
     Arrow3: TArrow;
     Arrow4: TArrow;
     BitBtn1: TBitBtn;
+    BitBtn15: TBitBtn;
+    BitBtn16: TBitBtn;
+    BitBtn2: TBitBtn;
+    btnBucket: TBitBtn;
     btnZoomOut: TBitBtn;
     btnZoomIn: TBitBtn;
     Label9: TLabel;
@@ -48,9 +52,6 @@ end;
     btnPersegi: TBitBtn;
     btnLingkaran: TBitBtn;
     BitBtn14: TBitBtn;
-    BitBtn15: TBitBtn;
-    BitBtn16: TBitBtn;
-    btnBucket: TBitBtn;
     BitBtn6: TBitBtn;
     BitBtn7: TBitBtn;
     ColorButton1: TColorButton;
@@ -66,7 +67,6 @@ end;
     Label7: TLabel;
     PageControl2: TPageControl;
     Panel1: TPanel;
-    Panel10: TPanel;
     Panel11: TPanel;
     Panel3: TPanel;
     Panel5: TPanel;
@@ -92,6 +92,7 @@ end;
     procedure BitBtn15Click(Sender: TObject);
     procedure BitBtn16Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
     procedure btnPensilClick(Sender: TObject);
     procedure btnPersegiClick(Sender: TObject);
     procedure btnZoomInClick(Sender: TObject);
@@ -104,6 +105,7 @@ end;
     procedure ComboBox1Change(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
     procedure PencerminanXClick(Sender: TObject);
     procedure PencerminanXYClick(Sender: TObject);
     procedure PencerminanYClick(Sender: TObject);
@@ -165,6 +167,11 @@ begin
      end;
      Image1.Refresh;
   end;
+
+end;
+
+procedure TForm1.Image1Click(Sender: TObject);
+begin
 
 end;
 
@@ -313,7 +320,13 @@ begin
   begin
       Image1.Canvas.MoveTo(X,Y);
   end
-  else
+  else if selected_btn = 'eraser' then
+  begin
+    Image1.Canvas.Pen.Color:=clWhite;
+    Image1.Canvas.Pen.Width:=SpinEdit3.Value;
+    Image1.Canvas.MoveTo(X,Y);
+  end
+  else if selected_btn <> '' then
   begin
       last_obj:=last_obj+1;
       SetLength(obj,last_obj);
@@ -347,7 +360,12 @@ begin
              if selected_btn = 'pensil' then
              begin
                   Image1.Canvas.LineTo(X,Y);
+             end
+             else if selected_btn = 'eraser' then
+             begin
+                  Image1.Canvas.LineTo(X,Y);
              end;
+
        end;
 
 
@@ -570,6 +588,12 @@ end;
 procedure TForm1.BitBtn1Click(Sender: TObject);
 begin
   selected_btn:='segilima';
+  StaticText1.Caption:=selected_btn;
+end;
+
+procedure TForm1.BitBtn2Click(Sender: TObject);
+begin
+  selected_btn:='eraser';
   StaticText1.Caption:=selected_btn;
 end;
 
